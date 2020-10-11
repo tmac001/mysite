@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ blog_type.type_name }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="page-header">
+                    <h3>博客列表 <small>一共有{{ blogs|length }}篇博文</small></h3>
+                </div>
+                <div class="panel panel-default">
+                    {% for blog in blogs %}
+                    <div class="panel-heading"> {{ blog.title }}</div>
+                    <div class="panel-body"><a href="{% url 'blog_detail'  blog.id %}">{{ blog.content|truncatechars:100 }}</a></div>
+                    {% endfor %}
+                </div>                  
+            </div>
+            <div class="col-md-4 ">
+                <div class="page-header">
+                    <h4>博客分类</h4>
+                    <ul class="list-group">
+                        {% for blog_type in blog_types %}
+                            <li class="list-group-item"><a href="{% url 'blog_type_list' blog_type.id %}">{{ blog_type }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}我的网站{% endblock %}
+{% block blog_header %}active{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="page-header">
+                <h3>博客列表 <small>一共有{{ blog_pages.object_list.count }}篇博文</small></h3>
+            </div>
+            <div class="panel panel-default">
+                {% for blog in blog_pages.object_list %}
+                <div class="panel-heading"> {{ blog.title }}</div>
+                <div class="panel-body"><a
+                        href="{% url 'blog_detail'  blog.id %}">{{ blog.content|truncatechars:100 }}</a></div>
+                {% endfor %}
+            </div>
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        {% if blog_pages.has_previous %}
+                        <a href="?page={{ blog_pages.pageprevious_page_number  }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                        {% else %}
+                        <span aria-hidden="true">&laquo;</span>
+                        {% endif %}
+                    </li>
+                    {% for blog_num in blog_pages.paginator.page_range %}
+                    <li><a href="?page={{ blog_num }}">{{ blog_num }}</a></li>
+                    {% endfor %}
+                    <li>
+                        {% if blog_pages.has_next %}
+                        <a href="?page={{ blog_pages.next_page_number  }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        {% else %}
+                        <span aria-hidden="true">&raquo;</span>
+                        {% endif %}
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-4 ">
+            <div class="page-header">
+                <h4>博客分类</h4>
+                <ul class="list-group">
+                    {% for blog_type in blog_types %}
+                    <li class="list-group-item"><a href="{% url 'blog_type_list' blog_type.id %}">{{ blog_type }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

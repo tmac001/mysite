@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0; 
+ }
+ div.nav {
+     background-color: #eee;
+     border-bottom:1px solid black;
+ }
+ div.nav a {
+     display:inline-block;
+     text-decoration:none;
+     color: black;
+     padding: 5px 10px;
+     font-size: 120%;
+ }
